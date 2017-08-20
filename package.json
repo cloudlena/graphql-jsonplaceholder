@@ -1,0 +1,45 @@
+{
+  "name": "graphql-jsonplaceholder",
+  "version": "0.0.1",
+  "description": "A GraphQL implementation of the JSONPlaceholder API",
+  "keywords": [
+    "typescript"
+  ],
+  "author": "Tobias Fuhrimann",
+  "license": "MIT",
+  "scripts": {
+    "start": "node dist",
+    "start:dev": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/index.ts",
+    "build": "rimraf dist && tsc",
+    "lint": "tslint --fix 'src/**/*.ts'",
+    "test": "npm run lint"
+  },
+  "dependencies": {
+    "@types/express": "^4.0.36",
+    "@types/express-graphql": "0.0.33",
+    "@types/graphql": "^0.10.2",
+    "@types/node": "^8.0.24",
+    "@types/node-fetch": "^1.6.7",
+    "express": "^4.15.4",
+    "express-graphql": "^0.6.7",
+    "graphql": "^0.10.5",
+    "node-fetch": "^1.7.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "rimraf": "^2.6.1",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.6.0",
+    "typescript": "^2.5.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mastertinner/nodejs-typescript-boilerplate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mastertinner/nodejs-typescript-boilerplate/issues"
+  },
+  "engines": {
+    "node": ">=8"
+  }
+}
