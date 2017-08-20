@@ -1,6 +1,7 @@
 import {
     GraphQLInt,
     GraphQLList,
+    GraphQLNonNull,
     GraphQLObjectType,
     GraphQLSchema,
 } from "graphql";
@@ -21,7 +22,7 @@ import UserType from "./users/type";
 const RootQuery = new GraphQLObjectType({
     fields: {
         album: {
-            args: { id: { type: GraphQLInt } },
+            args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
             resolve: (parentValue, args, { loaders }) => loaders.album.load(args.id),
             type: AlbumType,
         },
@@ -30,7 +31,7 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(AlbumType),
         },
         comment: {
-            args: { id: { type: GraphQLInt } },
+            args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
             resolve: (parentValue, args, { loaders }) => loaders.comment.load(args.id),
             type: CommentType,
         },
@@ -39,7 +40,7 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(CommentType),
         },
         photo: {
-            args: { id: { type: GraphQLInt } },
+            args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
             resolve: (parentValue, args, { loaders }) => loaders.photo.load(args.id),
             type: PhotoType,
         },
@@ -48,7 +49,7 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(PhotoType),
         },
         post: {
-            args: { id: { type: GraphQLInt } },
+            args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
             resolve: (parentValue, args, { loaders }) => loaders.post.load(args.id),
             type: PostType,
         },
@@ -57,7 +58,7 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(PostType),
         },
         todo: {
-            args: { id: { type: GraphQLInt } },
+            args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
             resolve: (parentValue, args, { loaders }) => loaders.todo.load(args.id),
             type: TodoType,
         },
@@ -66,7 +67,7 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(TodoType),
         },
         user: {
-            args: { id: { type: GraphQLInt } },
+            args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
             resolve: (parentValue, args, { loaders }) => loaders.user.load(args.id),
             type: UserType,
         },
