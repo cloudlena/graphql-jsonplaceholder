@@ -5,27 +5,33 @@ import {
     GraphQLSchema,
 } from "graphql";
 
-import { AlbumType, getAlbum, getAlbums } from "./albums";
-import { CommentType, getComment, getComments } from "./comments";
-import { getPhoto, getPhotos, PhotoType } from "./photos";
-import { getPost, getPosts, PostType } from "./posts";
-import { getTodo, getTodos, TodoType } from "./todos";
-import { getUser, getUsers, UserType } from "./users";
+import { getAlbums } from "./albums/service";
+import AlbumType from "./albums/type";
+import { getComments } from "./comments/service";
+import CommentType from "./comments/type";
+import { getPhotos } from "./photos/service";
+import PhotoType from "./photos/type";
+import { getPosts } from "./posts/service";
+import PostType from "./posts/type";
+import { getTodos } from "./todos/service";
+import TodoType from "./todos/type";
+import { getUsers } from "./users/service";
+import UserType from "./users/type";
 
 const RootQuery = new GraphQLObjectType({
     fields: {
         album: {
             args: { id: { type: GraphQLInt } },
-            resolve: (parentValue, args) => getAlbum(args.id),
+            resolve: (parentValue, args, { loaders }) => loaders.album.load(args.id),
             type: AlbumType,
         },
         albums: {
-            resolve: () => getAlbums(),
+            resolve: (parentValue) => getAlbums(),
             type: new GraphQLList(AlbumType),
         },
         comment: {
             args: { id: { type: GraphQLInt } },
-            resolve: (parentValue, args) => getComment(args.id),
+            resolve: (parentValue, args, { loaders }) => loaders.comment.load(args.id),
             type: CommentType,
         },
         comments: {
@@ -34,7 +40,7 @@ const RootQuery = new GraphQLObjectType({
         },
         photo: {
             args: { id: { type: GraphQLInt } },
-            resolve: (parentValue, args) => getPhoto(args.id),
+            resolve: (parentValue, args, { loaders }) => loaders.photo.load(args.id),
             type: PhotoType,
         },
         photos: {
@@ -43,7 +49,7 @@ const RootQuery = new GraphQLObjectType({
         },
         post: {
             args: { id: { type: GraphQLInt } },
-            resolve: (parentValue, args) => getPost(args.id),
+            resolve: (parentValue, args, { loaders }) => loaders.post.load(args.id),
             type: PostType,
         },
         posts: {
@@ -52,7 +58,7 @@ const RootQuery = new GraphQLObjectType({
         },
         todo: {
             args: { id: { type: GraphQLInt } },
-            resolve: (parentValue, args) => getTodo(args.id),
+            resolve: (parentValue, args, { loaders }) => loaders.todo.load(args.id),
             type: TodoType,
         },
         todos: {
@@ -61,7 +67,7 @@ const RootQuery = new GraphQLObjectType({
         },
         user: {
             args: { id: { type: GraphQLInt } },
-            resolve: (parentValue, args) => getUser(args.id),
+            resolve: (parentValue, args, { loaders }) => loaders.user.load(args.id),
             type: UserType,
         },
         users: {
@@ -72,4 +78,6 @@ const RootQuery = new GraphQLObjectType({
     name: "RootQuery",
 });
 
-export const schema = new GraphQLSchema({ query: RootQuery });
+const schema = new GraphQLSchema({ query: RootQuery });
+
+export default schema;

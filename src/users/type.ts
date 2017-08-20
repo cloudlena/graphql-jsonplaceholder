@@ -5,30 +5,9 @@ import {
     GraphQLString,
 } from "graphql";
 
-import { AlbumType } from "../albums";
-import { PostType } from "../posts";
-import { getResourceByPath } from "../shared";
-import { TodoType } from "../todos";
-
-export function getUsers() {
-    return getResourceByPath("/users");
-}
-
-export function getUser(id: number) {
-    return getResourceByPath(`/users/${id}`);
-}
-
-export function getUserAlbums(id: number) {
-    return getResourceByPath(`/users/${id}/albums`);
-}
-
-export function getUserPosts(id: number) {
-    return getResourceByPath(`/users/${id}/posts`);
-}
-
-export function getUserTodos(id: number) {
-    return getResourceByPath(`/users/${id}/todos`);
-}
+import AlbumType from "../albums/type";
+import PostType from "../posts/type";
+import TodoType from "../todos/type";
 
 const UserAddressGeoType = new GraphQLObjectType({
     fields: {
@@ -58,11 +37,11 @@ const UserCompanyType = new GraphQLObjectType({
     name: "UserCompany",
 });
 
-export const UserType: GraphQLObjectType = new GraphQLObjectType({
+const UserType: GraphQLObjectType = new GraphQLObjectType({
     fields: () => ({
         address: { type: UserAddressType },
         albums: {
-            resolve: (parentValue) => getUserAlbums(parentValue.id),
+            resolve: (parentValue, args, { loaders }) => loaders.albums.load(parentValue.id),
             type: new GraphQLList(AlbumType),
         },
         company: { type: UserCompanyType },
@@ -71,11 +50,11 @@ export const UserType: GraphQLObjectType = new GraphQLObjectType({
         name: { type: GraphQLString },
         phone: { type: GraphQLString },
         posts: {
-            resolve: (parentValue) => getUserPosts(parentValue.id),
+            resolve: (parentValue, args, { loaders }) => loaders.posts.load(parentValue.id),
             type: new GraphQLList(PostType),
         },
         todos: {
-            resolve: (parentValue) => getUserTodos(parentValue.id),
+            resolve: (parentValue, args, { loaders }) => loaders.totos.load(parentValue.id),
             type: new GraphQLList(TodoType),
         },
         username: { type: GraphQLString },
@@ -83,3 +62,5 @@ export const UserType: GraphQLObjectType = new GraphQLObjectType({
     }),
     name: "User",
 });
+
+export default UserType;
