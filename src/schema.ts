@@ -19,7 +19,7 @@ import TodoType from "./todos/type";
 import { getUsers } from "./users/service";
 import UserType from "./users/type";
 
-const RootQuery = new GraphQLObjectType({
+const QueryType = new GraphQLObjectType({
     fields: {
         album: {
             args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
@@ -76,9 +76,9 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(UserType),
         },
     },
-    name: "RootQuery",
+    name: "Query",
 });
 
-const schema = new GraphQLSchema({ query: RootQuery });
+const schema = new GraphQLSchema({ query: QueryType });
 
 export default schema;
