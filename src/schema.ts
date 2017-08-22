@@ -1,9 +1,10 @@
 import {
-    GraphQLInt,
+    GraphQLID,
     GraphQLList,
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLSchema,
+    GraphQLString,
 } from "graphql";
 
 import { getAlbums } from "./albums/service";
@@ -16,13 +17,13 @@ import { getPosts } from "./posts/service";
 import PostType from "./posts/type";
 import { getTodos } from "./todos/service";
 import TodoType from "./todos/type";
-import { getUsers } from "./users/service";
+import { createUser, deleteUser, getUsers, updateUser } from "./users/service";
 import UserType from "./users/type";
 
 const QueryType = new GraphQLObjectType({
     fields: {
         album: {
-            args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
+            args: { id: { type: new GraphQLNonNull(GraphQLID) } },
             resolve: (parentValue, args, { loaders }) => loaders.album.load(args.id),
             type: AlbumType,
         },
@@ -31,7 +32,7 @@ const QueryType = new GraphQLObjectType({
             type: new GraphQLList(AlbumType),
         },
         comment: {
-            args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
+            args: { id: { type: new GraphQLNonNull(GraphQLID) } },
             resolve: (parentValue, args, { loaders }) => loaders.comment.load(args.id),
             type: CommentType,
         },
@@ -40,7 +41,7 @@ const QueryType = new GraphQLObjectType({
             type: new GraphQLList(CommentType),
         },
         photo: {
-            args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
+            args: { id: { type: new GraphQLNonNull(GraphQLID) } },
             resolve: (parentValue, args, { loaders }) => loaders.photo.load(args.id),
             type: PhotoType,
         },
@@ -49,7 +50,7 @@ const QueryType = new GraphQLObjectType({
             type: new GraphQLList(PhotoType),
         },
         post: {
-            args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
+            args: { id: { type: new GraphQLNonNull(GraphQLID) } },
             resolve: (parentValue, args, { loaders }) => loaders.post.load(args.id),
             type: PostType,
         },
@@ -58,7 +59,7 @@ const QueryType = new GraphQLObjectType({
             type: new GraphQLList(PostType),
         },
         todo: {
-            args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
+            args: { id: { type: new GraphQLNonNull(GraphQLID) } },
             resolve: (parentValue, args, { loaders }) => loaders.todo.load(args.id),
             type: TodoType,
         },
@@ -67,7 +68,7 @@ const QueryType = new GraphQLObjectType({
             type: new GraphQLList(TodoType),
         },
         user: {
-            args: { id: { type: new GraphQLNonNull(GraphQLInt) } },
+            args: { id: { type: new GraphQLNonNull(GraphQLID) } },
             resolve: (parentValue, args, { loaders }) => loaders.user.load(args.id),
             type: UserType,
         },
@@ -79,6 +80,45 @@ const QueryType = new GraphQLObjectType({
     name: "Query",
 });
 
-const schema = new GraphQLSchema({ query: QueryType });
+const MutationType = new GraphQLObjectType({
+    fields: {
+        createUser: {
+            args: {
+                email: { type: GraphQLString },
+                name: { type: GraphQLString },
+                phone: { type: GraphQLString },
+                username: { type: GraphQLString },
+                website: { type: GraphQLString },
+            },
+            resolve: (parentValue, args) => createUser(args),
+            type: UserType,
+        },
+        deleteUser: {
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLID) },
+            },
+            resolve: (parentValue, args) => deleteUser(args.id),
+            type: UserType,
+        },
+        updateUser: {
+            args: {
+                email: { type: GraphQLString },
+                id: { type: new GraphQLNonNull(GraphQLID) },
+                name: { type: GraphQLString },
+                phone: { type: GraphQLString },
+                username: { type: GraphQLString },
+                website: { type: GraphQLString },
+            },
+            resolve: (parentValue, args) => updateUser(args.id, args),
+            type: UserType,
+        },
+    },
+    name: "Mutation",
+});
+
+const schema = new GraphQLSchema({
+    mutation: MutationType,
+    query: QueryType,
+});
 
 export default schema;

@@ -9,18 +9,16 @@ const DEFAULT_PORT = 3000;
 
 const app = express();
 
-app.use("/graphql", graphqlHTTP(() => {
-    const graphqlOptions: graphqlHTTP.Options = {
-        context: { loaders },
-        schema,
-    };
-    if (process.env.NODE_ENV !== "production") {
-        graphqlOptions.graphiql = true;
-        graphqlOptions.pretty = true;
-    }
+const graphqlOptions: graphqlHTTP.Options = {
+    context: { loaders },
+    schema,
+};
+if (process.env.NODE_ENV !== "production") {
+    graphqlOptions.graphiql = true;
+    graphqlOptions.pretty = true;
+}
 
-    return graphqlOptions;
-}));
+app.use("/graphql", graphqlHTTP(graphqlOptions));
 
 const port = process.env.PORT || DEFAULT_PORT;
 app.listen(port, () => console.log(`Server listening on port ${port}`));

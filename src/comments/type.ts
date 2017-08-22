@@ -1,6 +1,6 @@
 import {
     GraphQLBoolean,
-    GraphQLInt,
+    GraphQLID,
     GraphQLList,
     GraphQLObjectType,
     GraphQLString,
@@ -12,7 +12,7 @@ const CommentType: GraphQLObjectType = new GraphQLObjectType({
     fields: () => ({
         body: { type: GraphQLString },
         email: { type: GraphQLString },
-        id: { type: GraphQLInt },
+        id: { type: GraphQLID },
         name: { type: GraphQLString },
         post: {
             resolve: (parentValue, args, { loaders }) => loaders.post.load(parentValue.postId),
