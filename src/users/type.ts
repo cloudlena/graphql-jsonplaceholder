@@ -1,6 +1,7 @@
 import {
     GraphQLID,
     GraphQLList,
+    GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
 } from "graphql";
@@ -46,7 +47,7 @@ const UserType: GraphQLObjectType = new GraphQLObjectType({
         },
         company: { type: UserCompanyType },
         email: { type: GraphQLString },
-        id: { type: GraphQLID },
+        id: { type: new GraphQLNonNull(GraphQLID) },
         name: { type: GraphQLString },
         phone: { type: GraphQLString },
         posts: {
