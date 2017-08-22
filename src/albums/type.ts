@@ -2,6 +2,7 @@ import {
     GraphQLBoolean,
     GraphQLID,
     GraphQLList,
+    GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
 } from "graphql";
@@ -11,7 +12,7 @@ import UserType from "../users/type";
 
 const AlbumType: GraphQLObjectType = new GraphQLObjectType({
     fields: () => ({
-        id: { type: GraphQLID },
+        id: { type: new GraphQLNonNull(GraphQLID) },
         photos: {
             resolve: (parentValue, args, { loaders }) => loaders.photos.load(parentValue.id),
             type: new GraphQLList(PhotoType),

@@ -2,6 +2,7 @@ import {
     GraphQLBoolean,
     GraphQLID,
     GraphQLList,
+    GraphQLNonNull,
     GraphQLObjectType,
     GraphQLString,
 } from "graphql";
@@ -16,7 +17,7 @@ const PostType = new GraphQLObjectType({
             resolve: (parentValue, args, { loaders }) => loaders.comments.load(parentValue.id),
             type: new GraphQLList(CommentType),
         },
-        id: { type: GraphQLID },
+        id: { type: new GraphQLNonNull(GraphQLID) },
         title: { type: GraphQLString },
         user: {
             resolve: (parentValue, args, { loaders }) => loaders.user.load(parentValue.userId),
