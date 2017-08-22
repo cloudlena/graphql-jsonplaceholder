@@ -1,6 +1,6 @@
 import {
     GraphQLBoolean,
-    GraphQLInt,
+    GraphQLID,
     GraphQLObjectType,
     GraphQLString,
 } from "graphql";
@@ -13,7 +13,7 @@ const PhotoType = new GraphQLObjectType({
             resolve: (parentValue, args, { loaders }) => loaders.album.load(parentValue.userId),
             type: AlbumType,
         },
-        id: { type: GraphQLInt },
+        id: { type: GraphQLID },
         thumbnailUrl: { type: GraphQLString },
         title: { type: GraphQLString },
         url: { type: GraphQLString },
