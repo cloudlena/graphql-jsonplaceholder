@@ -3,6 +3,7 @@
     "module": "CommonJS",
     "target": "ES2016",
     "noImplicitAny": true,
+    "noUnusedLocals": true,
     "outDir": "dist"
   },
   "files": [

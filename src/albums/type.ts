@@ -1,5 +1,4 @@
 import {
-    GraphQLBoolean,
     GraphQLID,
     GraphQLList,
     GraphQLNonNull,
