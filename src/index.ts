@@ -1,4 +1,3 @@
-import * as DataLoader from "dataloader";
 import * as express from "express";
 import * as graphqlHTTP from "express-graphql";
 
