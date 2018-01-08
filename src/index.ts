@@ -9,12 +9,12 @@ const DEFAULT_PORT = 3000;
 const app = express();
 
 const graphqlOptions: graphqlHTTP.Options = {
-    context: { loaders },
-    schema,
+  context: { loaders },
+  schema,
 };
 if (process.env.NODE_ENV !== "production") {
-    graphqlOptions.graphiql = true;
-    graphqlOptions.pretty = true;
+  graphqlOptions.graphiql = true;
+  graphqlOptions.pretty = true;
 }
 
 app.use("/graphql", graphqlHTTP(graphqlOptions));
