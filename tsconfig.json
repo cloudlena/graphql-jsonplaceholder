@@ -8,9 +8,8 @@
     "alwaysStrict": true,
     "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
+    "lib": ["esnext"],
     "outDir": "dist"
   },
-  "include": [
-    "src/**/*.ts"
-  ]
+  "include": ["src/**/*.ts"]
 }
