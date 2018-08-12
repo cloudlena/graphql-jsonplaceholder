@@ -4,7 +4,6 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from "graphql";
-
 import PostType from "../posts/type";
 
 const CommentType: GraphQLObjectType = new GraphQLObjectType({

@@ -1,10 +1,9 @@
-import { getResourceByPath } from "../shared";
+import { getResourceByPath } from "../shared/getResourceByPath";
 
 export function getPhotos(albumId?: number) {
-  if (albumId !== undefined) {
+  if (albumId) {
     return getResourceByPath(`/albums/${albumId}/photos`);
   }
-
   return getResourceByPath("/photos");
 }
 

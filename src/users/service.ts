@@ -1,4 +1,4 @@
-import { getResourceByPath } from "../shared";
+import { getResourceByPath } from "../shared/getResourceByPath";
 
 export function getUsers() {
   return getResourceByPath("/users");

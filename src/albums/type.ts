@@ -5,7 +5,6 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from "graphql";
-
 import PhotoType from "../photos/type";
 import UserType from "../users/type";
 
