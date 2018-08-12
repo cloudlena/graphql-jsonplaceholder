@@ -4,7 +4,6 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from "graphql";
-
 import AlbumType from "../albums/type";
 
 const PhotoType = new GraphQLObjectType({

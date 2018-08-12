@@ -1,10 +1,9 @@
-import { getResourceByPath } from "../shared";
+import { getResourceByPath } from "../shared/getResourceByPath";
 
 export function getTodos(userId?: number) {
-  if (userId !== undefined) {
+  if (userId) {
     return getResourceByPath(`/users/${userId}/todos`);
   }
-
   return getResourceByPath("/todos");
 }
 

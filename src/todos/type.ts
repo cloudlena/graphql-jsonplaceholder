@@ -5,7 +5,6 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from "graphql";
-
 import UserType from "../users/type";
 
 const TodoType = new GraphQLObjectType({

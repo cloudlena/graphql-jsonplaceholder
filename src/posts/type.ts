@@ -5,7 +5,6 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from "graphql";
-
 import CommentType from "../comments/type";
 import UserType from "../users/type";
 

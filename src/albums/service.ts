@@ -1,7 +1,7 @@
-import { getResourceByPath } from "../shared";
+import { getResourceByPath } from "../shared/getResourceByPath";
 
 export function getAlbums(userId?: string) {
-  if (userId !== undefined) {
+  if (userId) {
     return getResourceByPath(`/users/${userId}/albums`);
   }
   return getResourceByPath("/albums");

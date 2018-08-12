@@ -5,7 +5,6 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from "graphql";
-
 import AlbumType from "../albums/type";
 import PostType from "../posts/type";
 import TodoType from "../todos/type";
