@@ -1,12 +1,10 @@
 import { getResourceByPath } from "../shared/getResourceByPath";
 
-export function getTodos(userId?: number) {
+export const getTodos = (userId?: number) => {
   if (userId) {
     return getResourceByPath(`/users/${userId}/todos`);
   }
   return getResourceByPath("/todos");
-}
+};
 
-export function getTodo(id: number) {
-  return getResourceByPath(`/todos/${id}`);
-}
+export const getTodo = (id: number) => getResourceByPath(`/todos/${id}`);

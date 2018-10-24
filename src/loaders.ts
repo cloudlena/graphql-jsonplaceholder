@@ -1,5 +1,4 @@
 import * as DataLoader from "dataloader";
-
 import { getAlbum, getAlbums } from "./albums/service";
 import { getComment, getComments } from "./comments/service";
 import { getPhoto, getPhotos } from "./photos/service";

@@ -6,7 +6,6 @@ import {
   GraphQLSchema,
   GraphQLString,
 } from "graphql";
-
 import { getAlbums } from "./albums/service";
 import AlbumType from "./albums/type";
 import { getComments } from "./comments/service";

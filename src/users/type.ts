@@ -9,43 +9,43 @@ import AlbumType from "../albums/type";
 import PostType from "../posts/type";
 import TodoType from "../todos/type";
 
-const UserAddressGeoType = new GraphQLObjectType({
+const GeoCoordinatesType = new GraphQLObjectType({
   fields: {
     lat: { type: GraphQLString },
     lng: { type: GraphQLString },
   },
-  name: "UserAddressGeo",
+  name: "GeoCoordinates",
 });
 
-const UserAddressType = new GraphQLObjectType({
+const AddressType = new GraphQLObjectType({
   fields: {
     city: { type: GraphQLString },
-    geo: { type: UserAddressGeoType },
+    geo: { type: GeoCoordinatesType },
     street: { type: GraphQLString },
     suite: { type: GraphQLString },
     zipcode: { type: GraphQLString },
   },
-  name: "UserAddress",
+  name: "Address",
 });
 
-const UserCompanyType = new GraphQLObjectType({
+const CompanyType = new GraphQLObjectType({
   fields: {
     bs: { type: GraphQLString },
     catchPhrase: { type: GraphQLString },
     name: { type: GraphQLString },
   },
-  name: "UserCompany",
+  name: "Company",
 });
 
 const UserType: GraphQLObjectType = new GraphQLObjectType({
   fields: () => ({
-    address: { type: UserAddressType },
+    address: { type: AddressType },
     albums: {
       resolve: (parentValue, args, { loaders }) =>
         loaders.albums.load(parentValue.id),
       type: new GraphQLList(AlbumType),
     },
-    company: { type: UserCompanyType },
+    company: { type: CompanyType },
     email: { type: GraphQLString },
     id: { type: new GraphQLNonNull(GraphQLID) },
     name: { type: GraphQLString },
