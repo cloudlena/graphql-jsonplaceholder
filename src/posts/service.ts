@@ -1,12 +1,10 @@
 import { getResourceByPath } from "../shared/getResourceByPath";
 
-export function getPosts(userId?: number) {
+export const getPosts = (userId?: number) => {
   if (userId) {
     return getResourceByPath(`/users/${userId}/posts`);
   }
   return getResourceByPath("/posts");
-}
+};
 
-export function getPost(id: number) {
-  return getResourceByPath(`/posts/${id}`);
-}
+export const getPost = (id: number) => getResourceByPath(`/posts/${id}`);

@@ -1,12 +1,10 @@
 import { getResourceByPath } from "../shared/getResourceByPath";
 
-export function getPhotos(albumId?: number) {
+export const getPhotos = (albumId?: number) => {
   if (albumId) {
     return getResourceByPath(`/albums/${albumId}/photos`);
   }
   return getResourceByPath("/photos");
-}
+};
 
-export function getPhoto(id: number) {
-  return getResourceByPath(`/photos/${id}`);
-}
+export const getPhoto = (id: number) => getResourceByPath(`/photos/${id}`);

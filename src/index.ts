@@ -1,6 +1,5 @@
 import * as express from "express";
 import * as graphqlHTTP from "express-graphql";
-
 import loaders from "./loaders";
 import schema from "./schema";
 

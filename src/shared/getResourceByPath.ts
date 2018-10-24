@@ -1,10 +1,10 @@
 import fetch from "node-fetch";
 
-export async function getResourceByPath(
+export const getResourceByPath = async (
   path: string,
   method = "GET",
   body?: any,
-) {
+) => {
   try {
     const res = await fetch(`https://jsonplaceholder.typicode.com${path}`, {
       body: JSON.stringify(body),
@@ -18,4 +18,4 @@ export async function getResourceByPath(
   } catch (err) {
     console.error(err);
   }
-}
+};
