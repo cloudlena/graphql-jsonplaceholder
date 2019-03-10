@@ -23,17 +23,16 @@ const QueryType = new GraphQLObjectType({
   fields: {
     album: {
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve: (parentValue, args, { loaders }) => loaders.album.load(args.id),
+      resolve: (_, args, { loaders }) => loaders.album.load(args.id),
       type: AlbumType,
     },
     albums: {
-      resolve: (parentValue) => getAlbums(),
+      resolve: () => getAlbums(),
       type: new GraphQLList(AlbumType),
     },
     comment: {
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve: (parentValue, args, { loaders }) =>
-        loaders.comment.load(args.id),
+      resolve: (_, args, { loaders }) => loaders.comment.load(args.id),
       type: CommentType,
     },
     comments: {
@@ -42,7 +41,7 @@ const QueryType = new GraphQLObjectType({
     },
     photo: {
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve: (parentValue, args, { loaders }) => loaders.photo.load(args.id),
+      resolve: (_, args, { loaders }) => loaders.photo.load(args.id),
       type: PhotoType,
     },
     photos: {
@@ -51,7 +50,7 @@ const QueryType = new GraphQLObjectType({
     },
     post: {
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve: (parentValue, args, { loaders }) => loaders.post.load(args.id),
+      resolve: (_, args, { loaders }) => loaders.post.load(args.id),
       type: PostType,
     },
     posts: {
@@ -60,7 +59,7 @@ const QueryType = new GraphQLObjectType({
     },
     todo: {
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve: (parentValue, args, { loaders }) => loaders.todo.load(args.id),
+      resolve: (_, args, { loaders }) => loaders.todo.load(args.id),
       type: TodoType,
     },
     todos: {
@@ -69,7 +68,7 @@ const QueryType = new GraphQLObjectType({
     },
     user: {
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve: (parentValue, args, { loaders }) => loaders.user.load(args.id),
+      resolve: (_, args, { loaders }) => loaders.user.load(args.id),
       type: UserType,
     },
     users: {
@@ -90,14 +89,14 @@ const MutationType = new GraphQLObjectType({
         username: { type: GraphQLString },
         website: { type: GraphQLString },
       },
-      resolve: (parentValue, args) => createUser(args),
+      resolve: (_, args) => createUser(args),
       type: UserType,
     },
     deleteUser: {
       args: {
         id: { type: new GraphQLNonNull(GraphQLID) },
       },
-      resolve: (parentValue, args) => deleteUser(args.id),
+      resolve: (_, args) => deleteUser(args.id),
       type: UserType,
     },
     updateUser: {
@@ -109,7 +108,7 @@ const MutationType = new GraphQLObjectType({
         username: { type: GraphQLString },
         website: { type: GraphQLString },
       },
-      resolve: (parentValue, args) => updateUser(args.id, args),
+      resolve: (_, args) => updateUser(args.id, args),
       type: UserType,
     },
   },
