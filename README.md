@@ -1,6 +1,7 @@
 # GraphQL JSONPlaceholder
 
 [![Build Status](https://img.shields.io/travis/mastertinner/graphql-jsonplaceholder.svg?style=flat-square)](https://travis-ci.org/mastertinner/graphql-jsonplaceholder)
+[![Docker Build](https://img.shields.io/docker/cloud/build/mastertinner/graphql-jsonplaceholder.svg?style=flat-square)](https://hub.docker.com/r/mastertinner/graphql-jsonplaceholder)
 
 A sample GraphQL implementation for the [JSONPlaceholder API](https://jsonplaceholder.typicode.com/).
 
