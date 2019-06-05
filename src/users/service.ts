@@ -34,7 +34,7 @@ export const createUser = (newUser: User): Promise<void> =>
 
 export const updateUser = (
   id: number,
-  newFields: Partial<User>,
+  newFields: Partial<User>
 ): Promise<void> => getResourceByPath(`/users/${id}`, "PATCH", newFields);
 
 export const deleteUser = (id: number): Promise<void> =>
