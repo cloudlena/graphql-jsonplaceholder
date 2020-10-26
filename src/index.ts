@@ -1,5 +1,5 @@
 import * as express from "express";
-import * as graphqlHTTP from "express-graphql";
+import { graphqlHTTP, Options } from "express-graphql";
 import loaders from "./loaders";
 import schema from "./schema";
 
@@ -7,7 +7,7 @@ const DEFAULT_PORT = 3000;
 
 const app = express();
 
-const graphqlOptions: graphqlHTTP.Options = {
+const graphqlOptions: Options = {
   context: { loaders },
   schema,
 };

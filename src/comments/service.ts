@@ -1,12 +1,5 @@
+import { Comment } from "./type";
 import { getResourceByPath } from "../shared/getResourceByPath";
-
-interface Comment {
-  postId: number;
-  id: number;
-  name: string;
-  email: string;
-  body: string;
-}
 
 export const getComments = (postId?: number): Promise<Comment[]> => {
   if (postId) {

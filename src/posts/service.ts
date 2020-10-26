@@ -1,11 +1,5 @@
+import { Post } from "./type";
 import { getResourceByPath } from "../shared/getResourceByPath";
-
-interface Post {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-}
 
 export const getPosts = (userId?: number): Promise<Post[]> => {
   if (userId) {
