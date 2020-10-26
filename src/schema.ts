@@ -20,6 +20,7 @@ import { createUser, deleteUser, getUsers, updateUser } from "./users/service";
 import UserType from "./users/type";
 
 const QueryType = new GraphQLObjectType({
+  name: "Query",
   fields: {
     album: {
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
@@ -76,17 +77,17 @@ const QueryType = new GraphQLObjectType({
       type: new GraphQLList(UserType),
     },
   },
-  name: "Query",
 });
 
 const MutationType = new GraphQLObjectType({
+  name: "Mutation",
   fields: {
     createUser: {
       args: {
-        email: { type: GraphQLString },
         name: { type: GraphQLString },
-        phone: { type: GraphQLString },
         username: { type: GraphQLString },
+        email: { type: GraphQLString },
+        phone: { type: GraphQLString },
         website: { type: GraphQLString },
       },
       resolve: (_, args) => createUser(args),
@@ -101,23 +102,22 @@ const MutationType = new GraphQLObjectType({
     },
     updateUser: {
       args: {
-        email: { type: GraphQLString },
         id: { type: new GraphQLNonNull(GraphQLID) },
         name: { type: GraphQLString },
-        phone: { type: GraphQLString },
         username: { type: GraphQLString },
+        email: { type: GraphQLString },
+        phone: { type: GraphQLString },
         website: { type: GraphQLString },
       },
       resolve: (_, args) => updateUser(args.id, args),
       type: UserType,
     },
   },
-  name: "Mutation",
 });
 
 const schema = new GraphQLSchema({
-  mutation: MutationType,
   query: QueryType,
+  mutation: MutationType,
 });
 
 export default schema;

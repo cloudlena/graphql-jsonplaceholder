@@ -1,11 +1,5 @@
+import { Todo } from "./type";
 import { getResourceByPath } from "../shared/getResourceByPath";
-
-interface Todo {
-  userId: number;
-  id: number;
-  title: string;
-  completed: boolean;
-}
 
 export const getTodos = (userId?: number): Promise<Todo[]> => {
   if (userId) {

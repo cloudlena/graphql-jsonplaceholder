@@ -1,12 +1,5 @@
+import { Photo } from "./type";
 import { getResourceByPath } from "../shared/getResourceByPath";
-
-interface Photo {
-  albumId: number;
-  id: number;
-  title: string;
-  url: string;
-  thumbnailUrl: string;
-}
 
 export const getPhotos = (albumId?: number): Promise<Photo[]> => {
   if (albumId) {

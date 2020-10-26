@@ -1,15 +1,11 @@
 {
+  "include": ["src/**/*.ts"],
   "compilerOptions": {
+    "target": "ES2019",
     "module": "CommonJS",
-    "target": "ES2016",
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "noImplicitReturns": true,
-    "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "forceConsistentCasingInFileNames": true,
     "lib": ["esnext"],
-    "outDir": "dist"
-  },
-  "include": ["src/**/*.ts"]
+    "outDir": "dist",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true
+  }
 }

@@ -8,22 +8,28 @@ import {
 import PhotoType from "../photos/type";
 import UserType from "../users/type";
 
+export interface Album {
+  id: number;
+  title: string;
+  userId: number;
+}
+
 const AlbumType: GraphQLObjectType = new GraphQLObjectType({
+  name: "Album",
   fields: () => ({
     id: { type: new GraphQLNonNull(GraphQLID) },
+    title: { type: GraphQLString },
     photos: {
       resolve: (parentValue, args, { loaders }) =>
         loaders.photos.load(parentValue.id),
       type: new GraphQLList(PhotoType),
     },
-    title: { type: GraphQLString },
     user: {
       resolve: (parentValue, args, { loaders }) =>
         loaders.user.load(parentValue.userId),
       type: UserType,
     },
   }),
-  name: "Album",
 });
 
 export default AlbumType;
