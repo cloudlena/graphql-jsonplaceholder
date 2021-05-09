@@ -1,12 +1,21 @@
+import { Response } from "node-fetch";
 import { Photo } from "./type";
 import { getResourceByPath } from "../shared/getResourceByPath";
 
-export const getPhotos = (albumId?: number): Promise<Photo[]> => {
+export const getPhotos = async (albumId?: string): Promise<Photo[]> => {
+  let res: Response;
   if (albumId) {
-    return getResourceByPath(`/albums/${albumId}/photos`);
+    res = await getResourceByPath(`/albums/${albumId}/photos`);
+  } else {
+    res = await getResourceByPath("/photos");
   }
-  return getResourceByPath("/photos");
+
+  const photos = (await res.json()) as Photo[];
+  return photos;
 };
 
-export const getPhoto = (id: number): Promise<Photo> =>
-  getResourceByPath(`/photos/${id}`);
+export const getPhoto = async (id: string): Promise<Photo> => {
+  const res = await getResourceByPath(`/photos/${id}`);
+  const photo = (await res.json()) as Photo;
+  return photo;
+};

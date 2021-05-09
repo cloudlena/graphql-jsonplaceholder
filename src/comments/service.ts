@@ -1,12 +1,21 @@
+import { Response } from "node-fetch";
 import { Comment } from "./type";
 import { getResourceByPath } from "../shared/getResourceByPath";
 
-export const getComments = (postId?: number): Promise<Comment[]> => {
+export const getComments = async (postId?: string): Promise<Comment[]> => {
+  let res: Response;
   if (postId) {
-    return getResourceByPath(`/posts/${postId}/comments`);
+    res = await getResourceByPath(`/posts/${postId}/comments`);
+  } else {
+    res = await getResourceByPath("/comments");
   }
-  return getResourceByPath("/comments");
+
+  const comments = (await res.json()) as Comment[];
+  return comments;
 };
 
-export const getComment = (id: number): Promise<Comment> =>
-  getResourceByPath(`/comments/${id}`);
+export const getComment = async (id: string): Promise<Comment> => {
+  const res = await getResourceByPath(`/comments/${id}`);
+  const comment = (await res.json()) as Comment;
+  return comment;
+};

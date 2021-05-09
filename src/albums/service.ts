@@ -1,12 +1,21 @@
+import { Response } from "node-fetch";
 import { Album } from "./type";
 import { getResourceByPath } from "../shared/getResourceByPath";
 
-export const getAlbums = (userId?: string): Promise<Album[]> => {
+export const getAlbums = async (userId?: string): Promise<Album[]> => {
+  let res: Response;
   if (userId) {
-    return getResourceByPath(`/users/${userId}/albums`);
+    res = await getResourceByPath(`/users/${userId}/albums`);
+  } else {
+    res = await getResourceByPath("/albums");
   }
-  return getResourceByPath("/albums");
+
+  const albums = (await res.json()) as Album[];
+  return albums;
 };
 
-export const getAlbum = (id: number): Promise<Album> =>
-  getResourceByPath(`/albums/${id}`);
+export const getAlbum = async (id: string): Promise<Album> => {
+  const res = await getResourceByPath(`/albums/${id}`);
+  const album = (await res.json()) as Album;
+  return album;
+};

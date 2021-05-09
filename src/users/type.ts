@@ -8,9 +8,10 @@ import {
 import AlbumType from "../albums/type";
 import PostType from "../posts/type";
 import TodoType from "../todos/type";
+import { Loaders } from "../loaders";
 
 export interface User {
-  id: number;
+  id: string;
   name: string;
   username: string;
   email: string;
@@ -61,33 +62,34 @@ const CompanyType = new GraphQLObjectType({
   },
 });
 
-const UserType: GraphQLObjectType = new GraphQLObjectType({
-  name: "User",
-  fields: () => ({
-    id: { type: new GraphQLNonNull(GraphQLID) },
-    name: { type: GraphQLString },
-    username: { type: GraphQLString },
-    email: { type: GraphQLString },
-    phone: { type: GraphQLString },
-    website: { type: GraphQLString },
-    address: { type: AddressType },
-    company: { type: CompanyType },
-    albums: {
-      resolve: (parentValue, args, { loaders }) =>
-        loaders.albums.load(parentValue.id),
-      type: new GraphQLList(AlbumType),
-    },
-    posts: {
-      resolve: (parentValue, args, { loaders }) =>
-        loaders.posts.load(parentValue.id),
-      type: new GraphQLList(PostType),
-    },
-    todos: {
-      resolve: (parentValue, args, { loaders }) =>
-        loaders.totos.load(parentValue.id),
-      type: new GraphQLList(TodoType),
-    },
-  }),
-});
+const UserType: GraphQLObjectType<User, { loaders: Loaders }> =
+  new GraphQLObjectType({
+    name: "User",
+    fields: () => ({
+      id: { type: new GraphQLNonNull(GraphQLID) },
+      name: { type: GraphQLString },
+      username: { type: GraphQLString },
+      email: { type: GraphQLString },
+      phone: { type: GraphQLString },
+      website: { type: GraphQLString },
+      address: { type: AddressType },
+      company: { type: CompanyType },
+      albums: {
+        type: new GraphQLList(AlbumType),
+        resolve: (parentValue, args, { loaders }) =>
+          loaders.albums.load(parentValue.id),
+      },
+      posts: {
+        type: new GraphQLList(PostType),
+        resolve: (parentValue, args, { loaders }) =>
+          loaders.posts.load(parentValue.id),
+      },
+      todos: {
+        type: new GraphQLList(TodoType),
+        resolve: (parentValue, args, { loaders }) =>
+          loaders.todos.load(parentValue.id),
+      },
+    }),
+  });
 
 export default UserType;

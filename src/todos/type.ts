@@ -6,26 +6,28 @@ import {
   GraphQLString,
 } from "graphql";
 import UserType from "../users/type";
+import { Loaders } from "../loaders";
 
 export interface Todo {
-  id: number;
+  id: string;
   title: string;
   completed: boolean;
-  userId: number;
+  userId: string;
 }
 
-const TodoType = new GraphQLObjectType({
-  name: "Todo",
-  fields: () => ({
-    id: { type: new GraphQLNonNull(GraphQLID) },
-    title: { type: GraphQLString },
-    completed: { type: GraphQLBoolean },
-    user: {
-      resolve: (parentValue, args, { loaders }) =>
-        loaders.user.load(parentValue.userId),
-      type: UserType,
-    },
-  }),
-});
+const TodoType: GraphQLObjectType<Todo, { loaders: Loaders }> =
+  new GraphQLObjectType({
+    name: "Todo",
+    fields: () => ({
+      id: { type: new GraphQLNonNull(GraphQLID) },
+      title: { type: GraphQLString },
+      completed: { type: GraphQLBoolean },
+      user: {
+        type: UserType,
+        resolve: (parentValue, args, { loaders }) =>
+          loaders.user.load(parentValue.userId),
+      },
+    }),
+  });
 
 export default TodoType;

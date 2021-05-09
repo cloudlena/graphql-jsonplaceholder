@@ -5,28 +5,30 @@ import {
   GraphQLString,
 } from "graphql";
 import AlbumType from "../albums/type";
+import { Loaders } from "../loaders";
 
 export interface Photo {
-  id: number;
+  id: string;
   title: string;
   url: string;
   thumbnailUrl: string;
-  albumId: number;
+  albumId: string;
 }
 
-const PhotoType = new GraphQLObjectType({
-  name: "Photo",
-  fields: () => ({
-    id: { type: new GraphQLNonNull(GraphQLID) },
-    title: { type: GraphQLString },
-    url: { type: GraphQLString },
-    thumbnailUrl: { type: GraphQLString },
-    album: {
-      resolve: (parentValue, args, { loaders }) =>
-        loaders.album.load(parentValue.userId),
-      type: AlbumType,
-    },
-  }),
-});
+const PhotoType: GraphQLObjectType<Photo, { loaders: Loaders }> =
+  new GraphQLObjectType({
+    name: "Photo",
+    fields: () => ({
+      id: { type: new GraphQLNonNull(GraphQLID) },
+      title: { type: GraphQLString },
+      url: { type: GraphQLString },
+      thumbnailUrl: { type: GraphQLString },
+      album: {
+        type: AlbumType,
+        resolve: (parentValue, args, { loaders }) =>
+          loaders.album.load(parentValue.albumId),
+      },
+    }),
+  });
 
 export default PhotoType;
