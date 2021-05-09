@@ -5,28 +5,30 @@ import {
   GraphQLString,
 } from "graphql";
 import PostType from "../posts/type";
+import { Loaders } from "../loaders";
 
 export interface Comment {
-  id: number;
+  id: string;
   name: string;
   email: string;
   body: string;
-  postId: number;
+  postId: string;
 }
 
-const CommentType: GraphQLObjectType = new GraphQLObjectType({
-  name: "Comment",
-  fields: () => ({
-    id: { type: new GraphQLNonNull(GraphQLID) },
-    name: { type: GraphQLString },
-    email: { type: GraphQLString },
-    body: { type: GraphQLString },
-    post: {
-      resolve: (parentValue, args, { loaders }) =>
-        loaders.post.load(parentValue.postId),
-      type: PostType,
-    },
-  }),
-});
+const CommentType: GraphQLObjectType<Comment, { loaders: Loaders }> =
+  new GraphQLObjectType({
+    name: "Comment",
+    fields: () => ({
+      id: { type: new GraphQLNonNull(GraphQLID) },
+      name: { type: GraphQLString },
+      email: { type: GraphQLString },
+      body: { type: GraphQLString },
+      post: {
+        type: PostType,
+        resolve: (parentValue, args, { loaders }) =>
+          loaders.post.load(parentValue.postId),
+      },
+    }),
+  });
 
 export default CommentType;

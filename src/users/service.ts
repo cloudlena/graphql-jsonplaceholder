@@ -1,18 +1,29 @@
 import { User } from "./type";
 import { getResourceByPath } from "../shared/getResourceByPath";
 
-export const getUsers = (): Promise<User[]> => getResourceByPath("/users");
+export const getUsers = async (): Promise<User[]> => {
+  const res = await getResourceByPath("/users");
+  const users = (await res.json()) as User[];
+  return users;
+};
 
-export const getUser = (id: number): Promise<User> =>
-  getResourceByPath(`/users/${id}`);
+export const getUser = async (id: string): Promise<User> => {
+  const res = await getResourceByPath(`/users/${id}`);
+  const user = (await res.json()) as User;
+  return user;
+};
 
-export const createUser = (newUser: User): Promise<void> =>
-  getResourceByPath("/users", "POST", newUser);
+export const createUser = async (newUser: User): Promise<void> => {
+  await getResourceByPath("/users", "POST", newUser);
+};
 
-export const updateUser = (
-  id: number,
+export const updateUser = async (
+  id: string,
   newFields: Partial<User>
-): Promise<void> => getResourceByPath(`/users/${id}`, "PATCH", newFields);
+): Promise<void> => {
+  await getResourceByPath(`/users/${id}`, "PATCH", newFields);
+};
 
-export const deleteUser = (id: number): Promise<void> =>
-  getResourceByPath(`/users/${id}`, "DELETE");
+export const deleteUser = async (id: string): Promise<void> => {
+  await getResourceByPath(`/users/${id}`, "DELETE");
+};

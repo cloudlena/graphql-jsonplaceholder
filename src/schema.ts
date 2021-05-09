@@ -17,66 +17,66 @@ import PostType from "./posts/type";
 import { getTodos } from "./todos/service";
 import TodoType from "./todos/type";
 import { createUser, deleteUser, getUsers, updateUser } from "./users/service";
-import UserType from "./users/type";
+import UserType, { User } from "./users/type";
 
 const QueryType = new GraphQLObjectType({
   name: "Query",
-  fields: {
+  fields: () => ({
     album: {
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve: (_, args, { loaders }) => loaders.album.load(args.id),
       type: AlbumType,
+      resolve: (_, args, { loaders }) => loaders.album.load(args.id),
     },
     albums: {
-      resolve: () => getAlbums(),
       type: new GraphQLList(AlbumType),
+      resolve: () => getAlbums(),
     },
     comment: {
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve: (_, args, { loaders }) => loaders.comment.load(args.id),
       type: CommentType,
+      resolve: (_, args, { loaders }) => loaders.comment.load(args.id),
     },
     comments: {
-      resolve: () => getComments(),
       type: new GraphQLList(CommentType),
+      resolve: () => getComments(),
     },
     photo: {
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve: (_, args, { loaders }) => loaders.photo.load(args.id),
       type: PhotoType,
+      resolve: (_, args, { loaders }) => loaders.photo.load(args.id),
     },
     photos: {
-      resolve: () => getPhotos(),
       type: new GraphQLList(PhotoType),
+      resolve: () => getPhotos(),
     },
     post: {
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve: (_, args, { loaders }) => loaders.post.load(args.id),
       type: PostType,
+      resolve: (_, args, { loaders }) => loaders.post.load(args.id),
     },
     posts: {
-      resolve: () => getPosts(),
       type: new GraphQLList(PostType),
+      resolve: () => getPosts(),
     },
     todo: {
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve: (_, args, { loaders }) => loaders.todo.load(args.id),
       type: TodoType,
+      resolve: (_, args, { loaders }) => loaders.todo.load(args.id),
     },
     todos: {
-      resolve: () => getTodos(),
       type: new GraphQLList(TodoType),
+      resolve: () => getTodos(),
     },
     user: {
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve: (_, args, { loaders }) => loaders.user.load(args.id),
       type: UserType,
+      resolve: (_, args, { loaders }) => loaders.user.load(args.id),
     },
     users: {
-      resolve: () => getUsers(),
       type: new GraphQLList(UserType),
+      resolve: () => getUsers(),
     },
-  },
+  }),
 });
 
 const MutationType = new GraphQLObjectType({
@@ -90,15 +90,15 @@ const MutationType = new GraphQLObjectType({
         phone: { type: GraphQLString },
         website: { type: GraphQLString },
       },
-      resolve: (_, args) => createUser(args),
       type: UserType,
+      resolve: (_, args) => createUser(args as User),
     },
     deleteUser: {
       args: {
         id: { type: new GraphQLNonNull(GraphQLID) },
       },
-      resolve: (_, args) => deleteUser(args.id),
       type: UserType,
+      resolve: (_, args) => deleteUser(args.id),
     },
     updateUser: {
       args: {
@@ -109,8 +109,8 @@ const MutationType = new GraphQLObjectType({
         phone: { type: GraphQLString },
         website: { type: GraphQLString },
       },
-      resolve: (_, args) => updateUser(args.id, args),
       type: UserType,
+      resolve: (_, args) => updateUser(args.id, args),
     },
   },
 });
